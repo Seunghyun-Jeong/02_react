@@ -3,10 +3,14 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
 
-createRoot(document.getElementById('root')).render(
+const root = createRoot(document.getElementById('root'))
+root.render(
   <StrictMode>
     <App />
-     <App />
-
   </StrictMode>,
 )
+
+// // main.jsx 에서 1초마다 다시 그리기
+// setInterval(() => {
+//   root.render(<App />);
+// }, 1000);

@@ -1,9 +1,33 @@
 // 필요한 부품들을 불러옵니다.
 import './App.css'
-import Clock from './components/Clock.jsx'
-import { maskAccountNo, formatWonMasked } from './utils/format.js'
 // 02_html기초.html 안에 만들었던 계좌카드의 css를 가져와서
 // 아래에 있는 카드를 좀더 그럴듯하게 꾸며보세요.
+// 동작
+// 2. 함수
+// 계좌 잔액을 "1,523,000원" 형태의 문자열로 바꿔주는 함수
+function formatWon(amount) {
+  return amount.toLocaleString("ko-KR") + "원"
+}
+
+// 계좌번호 앞부분을 가리고 마지막 한 자리만 보여주는 함수
+// 예) "1002-345-678901" -> "1002-345-6****1"
+function maskAccountNo(no) {
+  return no.slice(0, -5) + "****" + no.slice(-1)
+}
+
+// hide 가 true 면 실제 금액 대신 "••••••원" 을 보여줍니다.
+function formatWonMasked(amount, hide) {
+  return hide ? "••••••원" : formatWon(amount)
+}
+
+// 일반 함수와 구분해서 JSX에서 이해하도록 
+// 컴포넌트 명은 대문자로 시작하는 파스칼케이스를 따릅니다.
+function Clock() {
+  const now = new Date();
+  return <span>{now.toLocaleTimeString("ko-KR")}</span>;
+}
+
+
 // 실제로 사용될 화면을 그립니다.
 function App() {
   
@@ -60,5 +84,4 @@ function App() {
   );
 }
 
-// 이 컴포넌트를 외부에서 import해서 쓸 수 있도록 선언
 export default App
