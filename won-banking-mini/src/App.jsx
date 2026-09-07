@@ -1,7 +1,9 @@
 // 필요한 부품들을 불러옵니다.
 import './App.css'
 import Clock from './components/Clock.jsx'
-import { maskAccountNo, formatWonMasked } from './utils/format.js'
+import Panel from './components/Panel.jsx'
+import AccountCard  from './components/AccountCard.jsx'
+
 // 02_html기초.html 안에 만들었던 계좌카드의 css를 가져와서
 // 아래에 있는 카드를 좀더 그럴듯하게 꾸며보세요.
 // 실제로 사용될 화면을 그립니다.
@@ -16,7 +18,7 @@ function App() {
       accountNo: "1002-345-678901", // 
       accountType: "입출금", // 
       balance: 1523000, // 
-      status: "정상",
+      status: "지급정지",
       ownerName: "김연지", // 
     },
     {
@@ -49,13 +51,15 @@ function App() {
     <> 
     <Clock />
     {/* class 는 JS의 예약어이므로 JSX에서는 className으로 대신 사용합니다.*/}
-    <div className="card">
-      <p>{accounts[0].ownerName}님의 {accounts[0].accountType}</p>
-      {/* 계좌번호를 가려서 출력 */}
-      <p>{maskAccountNo(accounts[0].accountNo)} </p> 
-      {/* 실제 서비스에서는 민감정보들을 화면에 직접 출력하지 않습니다. */}
-      <p>{ formatWonMasked(accounts[0].balance, showFullNo) }</p>
-    </div>
+
+    {/* 사용 */}
+    <Panel title="내 계좌">
+      <AccountCard accountNo={accounts[0].accountNo}
+                  accountType={accounts[0].accountType} 
+                  balance={accounts[0].balance}
+                  status={accounts[0].status}/>
+      {/* 두번째 AccountCard가 출력되도록 accounts[1] dict의 값과 매핑해주세요. */}
+    </Panel>
     </>
   );
 }
