@@ -46,7 +46,12 @@ function App() {
   // flag 변수를 사용할 때는 default 값을 false로 만들고 시작하는 로직을 권장 
   const [showFullNo, setShowFullNo] = useState(false);
   //     ↑현재 값      ↑바꾸는 함수              ↑처음값
-  
+
+  // 실습!
+  // showAmount 버튼의 클릭 여부에 따라 AccoutCard의 금액이 보이거나 보이지 않도록 
+  // prop으로 새로 생긴 변수를 넘겨보세요
+  const [showAmount, setShowAmount] = useState(false);
+
   // XML에서는 여는 꺽쇠 안의 태그가 무엇이든 될 수 있기 때문에 <이름>김연지 </이름>
   // JSX 가 소문자 태그는 HTML, 대문자로 시작하는 태그는 컴포넌트로 인식
   // return ( ) 바깥에서는 일반 자바스크립트처럼 // 로 주석을 적습니다.
@@ -58,7 +63,11 @@ function App() {
     <button onClick={() => setShowFullNo(!showFullNo)}>
       {showFullNo ? "계좌번호 숨기기" : "계좌번호 보기"}
     </button>
-    {console.log(showFullNo)} 
+
+    <button onClick={() => setShowAmount(!showAmount)}>
+      {showAmount ? "금액 숨기기" : "금액 보기"}
+    </button>
+    
     <Clock />
     {/* class 는 JS의 예약어이므로 JSX에서는 className으로 대신 사용합니다.*/}
 
@@ -68,7 +77,8 @@ function App() {
                   accountType={accounts[0].accountType} 
                   balance={accounts[0].balance}
                   status={accounts[0].status}
-                  showFullNo={showFullNo} />
+                  showFullNo={showFullNo}
+                  showAmount={showAmount} />
       {/* 두번째 AccountCard가 출력되도록 accounts[1] dict의 값과 매핑해주세요. */}
     
       <AccountCard accountNo={accounts[1].accountNo}
