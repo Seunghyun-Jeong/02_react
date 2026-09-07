@@ -3,6 +3,7 @@ import './App.css'
 import Clock from './components/Clock.jsx'
 import Panel from './components/Panel.jsx'
 import AccountCard  from './components/AccountCard.jsx'
+import Header from './components/Header'
 
 // 02_html기초.html 안에 만들었던 계좌카드의 css를 가져와서
 // 아래에 있는 카드를 좀더 그럴듯하게 꾸며보세요.
@@ -49,6 +50,7 @@ function App() {
   // return 뒤에 렌더링 될 부분을 적습니다.
   return (
     <> 
+    <Header />
     <Clock />
     {/* class 는 JS의 예약어이므로 JSX에서는 className으로 대신 사용합니다.*/}
 
@@ -59,6 +61,12 @@ function App() {
                   balance={accounts[0].balance}
                   status={accounts[0].status}/>
       {/* 두번째 AccountCard가 출력되도록 accounts[1] dict의 값과 매핑해주세요. */}
+    
+      <AccountCard accountNo={accounts[1].accountNo}
+                  accountType={accounts[1].accountType} 
+                  balance={accounts[1].balance}
+                  status={accounts[1].status}/>
+    
     </Panel>
     </>
   );
