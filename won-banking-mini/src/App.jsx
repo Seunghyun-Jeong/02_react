@@ -84,7 +84,10 @@ function App() {
     <Header />
 
     <button onClick={() => setShowFullNo(!showFullNo)}>
-      {showFullNo ? "계좌번호 숨기기" : "계좌번호 보기"}
+      {/* 논리연산자를 사용해서 같은 화면을 조건부 렌더링해보세요 */}
+      {/* showFullNo ? "계좌번호 숨기기" : "계좌번호 보기" */}
+      {showFullNo && "계좌번호 숨기기"}
+      {!showFullNo && "계좌번호 보기"}
     </button>
 
     <button onClick={() => setShowAmount(!showAmount)}>
@@ -123,6 +126,13 @@ function App() {
     </Panel>
 
     {/* txType, amount, category, memo, counterparty, txDatetime, hideAmount  */}
+
+    <Panel title="최근 거래">
+      {transactions.map((tx) => (
+        <TransactionRow key={tx.txId} {...tx} />
+      ))}
+    </Panel>
+    
     <Panel title="최근 거래">
       <TransactionRow 
         counterparty={transactions[0].counterparty} 
@@ -145,7 +155,7 @@ function App() {
     </Panel>
 
     <Panel title="오늘의 환율"> 
-    <ExchangeRate />
+     <ExchangeRate />
     </Panel>
     </>
   );
