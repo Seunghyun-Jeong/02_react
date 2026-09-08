@@ -21,7 +21,7 @@ function App() {
   // 계좌 목록 (실제 서비스에서는 백엔드 DB에서 내려오는 데이터가 뿌려집니다)
   const initialAccounts = [
     {
-      accountId: 1, // 중복을 구분하기 위해서 화면에 뿌리지 않아도 구분자역할을 하는 id값을 데이터에 심어주게 됩니다.
+      accountId: 'a', // 중복을 구분하기 위해서 화면에 뿌리지 않아도 구분자역할을 하는 id값을 데이터에 심어주게 됩니다.
       accountNo: "1002-345-678901", // 
       accountType: "입출금", // 
       balance: 1523000, // 
@@ -29,7 +29,7 @@ function App() {
       ownerName: "김연지", // 
     },
     {
-      accountId: 2,
+      accountId: 'b', 
       accountNo: "1002-345-112233",
       accountType: "적금",
       balance: 1200000,
@@ -37,7 +37,7 @@ function App() {
       ownerName: "김연지",
     },
     {
-      accountId: 3,
+      accountId: 'c',
       accountNo: "1002-345-998877",
       accountType: "적금",
       balance: 397000,
@@ -73,7 +73,7 @@ function App() {
 
   // 합계를 state로 두지 않습니다. component 안에서의 각각의 상태값이 아니고
   // App에서 매번 다시 계산하는 변수
-  const totalBalance = accounts[0].balance + accounts[1].balance
+  const totalBalance = accounts[0].balance + accounts[1].balance + accounts[2].balance
 
   // XML에서는 여는 꺽쇠 안의 태그가 무엇이든 될 수 있기 때문에 <이름>김연지 </이름>
   // JSX 가 소문자 태그는 HTML, 대문자로 시작하는 태그는 컴포넌트로 인식
@@ -102,37 +102,33 @@ function App() {
       <p> {formatWon(totalBalance) } </p>
     </div>
     {/* 사용 */}
+
     <Panel title="내 계좌">
-      <AccountCard accountNo={accounts[0].accountNo}
-                  accountType={accounts[0].accountType} 
-                  balance={accounts[0].balance}
-                  status={accounts[0].status}
-                  showFullNo={showFullNo}
-                  showAmount={showAmount}
-                  onDeposit={() => handleDeposit(accounts[0].accountId) }
-                   />
-      {/* 두번째 AccountCard가 출력되도록 accounts[1] dict의 값과 매핑해주세요. */}
-    
-      <AccountCard accountNo={accounts[1].accountNo}
-                  accountType={accounts[1].accountType} 
-                  balance={accounts[1].balance}
-                  status={accounts[1].status}
-                  showFullNo={showFullNo}
-                  onDeposit={() => handleDeposit(accounts[1].accountId) }
-                   />
-             
-             
-    
+      {accounts.map((account) => (
+        <AccountCard key={account.accountId} 
+                    showFullNo={showFullNo}
+                    showAmount={showAmount}
+                    onDeposit={() => handleDeposit(account.accountId)} 
+                    accountNo={account.accountNo}
+                    accountType={account.accountType} 
+                    balance={account.balance}
+                    status={account.status}  
+                     />
+        ))}
     </Panel>
 
-    {/* txType, amount, category, memo, counterparty, txDatetime, hideAmount  */}
+    {/* map()과 key, spread연산자로 가지고 있는 집합자료형의 모든 자료를 화면에 
+    반복해서 돌면서 풀어헤칩니다.
+    1. spread 연산자로 전체 key/value를 퉁쳐버리면 props 에 처음에 받았던 값들만 사용합니다.
+    2. 어디에 무슨 변수가 들어가는지 확인이 불가합니다.  
+    txType, amount, category, memo, counterparty, txDatetime, hideAmount  */}
 
     <Panel title="최근 거래">
       {transactions.map((tx) => (
         <TransactionRow key={tx.txId} {...tx} />
       ))}
     </Panel>
-    
+
     <Panel title="최근 거래">
       <TransactionRow 
         counterparty={transactions[0].counterparty} 
