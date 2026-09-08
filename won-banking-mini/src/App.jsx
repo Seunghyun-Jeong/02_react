@@ -10,6 +10,7 @@ import TransactionRow from './components/TransactionRow.jsx'
 import { transactions } from './data/mockData'
 import { formatWon } from './utils/format.js'
 import ExchangeRate from './components/ExchangeRate.jsx'
+import TransactionList from './components/TransactionList.jsx'
 
 // 02_html기초.html 안에 만들었던 계좌카드의 css를 가져와서
 // 아래에 있는 카드를 좀더 그럴듯하게 꾸며보세요.
@@ -124,30 +125,7 @@ function App() {
     txType, amount, category, memo, counterparty, txDatetime, hideAmount  */}
 
     <Panel title="최근 거래">
-      {transactions.map((tx) => (
-        <TransactionRow key={tx.txId} {...tx} />
-      ))}
-    </Panel>
-
-    <Panel title="최근 거래">
-      <TransactionRow 
-        counterparty={transactions[0].counterparty} 
-        txType={transactions[0].txType}
-        amount={transactions[0].amount}
-        category={transactions[0].category}
-        memo={transactions[0].memo}
-        txDatetime={transactions[0].txDatetime}
-        hideAmount={showAmount}
-        />
-
-        <TransactionRow 
-        counterparty={transactions[1].counterparty} 
-        txType={transactions[1].txType}
-        amount={transactions[1].amount}
-        category={transactions[1].category}
-        memo={transactions[1].memo}
-        txDatetime={transactions[1].txDatetime}
-        />
+      <TransactionList showAmount={showAmount} />
     </Panel>
 
     <Panel title="오늘의 환율"> 
