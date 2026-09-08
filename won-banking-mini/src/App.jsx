@@ -6,7 +6,10 @@ import AccountCard  from './components/AccountCard.jsx'
 import Header from './components/Header'
 import Counter from './components/Counter.jsx'
 import { useState } from 'react'
- 
+import TransactionRow from './components/TransactionRow.jsx'
+import { transactions } from './data/mockData'
+import { formatWon } from './utils/format.js'
+
 // 02_html기초.html 안에 만들었던 계좌카드의 css를 가져와서
 // 아래에 있는 카드를 좀더 그럴듯하게 꾸며보세요.
 // 실제로 사용될 화면을 그립니다.
@@ -71,6 +74,10 @@ function App() {
     <Clock />
     {/* class 는 JS의 예약어이므로 JSX에서는 className으로 대신 사용합니다.*/}
 
+    <div className="total">
+      <p> 총 자산 </p>
+      <p> {formatWon(accounts[0].balance + accounts[1].balance) } </p>
+    </div>
     {/* 사용 */}
     <Panel title="내 계좌">
       <AccountCard accountNo={accounts[0].accountNo}
@@ -87,6 +94,28 @@ function App() {
                   status={accounts[1].status}
                   showFullNo={showFullNo} />
     
+    </Panel>
+
+    {/* txType, amount, category, memo, counterparty, txDatetime, hideAmount  */}
+    <Panel title="최근 거래">
+      <TransactionRow 
+        counterparty={transactions[0].counterparty} 
+        txType={transactions[0].txType}
+        amount={transactions[0].amount}
+        category={transactions[0].category}
+        memo={transactions[0].memo}
+        txDatetime={transactions[0].txDatetime}
+        hideAmount={showAmount}
+        />
+
+        <TransactionRow 
+        counterparty={transactions[1].counterparty} 
+        txType={transactions[1].txType}
+        amount={transactions[1].amount}
+        category={transactions[1].category}
+        memo={transactions[1].memo}
+        txDatetime={transactions[1].txDatetime}
+        />
     </Panel>
     </>
   );
