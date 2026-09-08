@@ -18,13 +18,13 @@ function App() {
   // 화면이 렌더링 되기 위해 필요로 하는 값(data)을 적습니다.
   // 1. 데이터
   // 계좌 목록 (실제 서비스에서는 백엔드 DB에서 내려오는 데이터가 뿌려집니다)
-  const accounts = [
+  const initialAccounts = [
     {
-      accountId: 1,
+      accountId: 1, // 중복을 구분하기 위해서 화면에 뿌리지 않아도 구분자역할을 하는 id값을 데이터에 심어주게 됩니다.
       accountNo: "1002-345-678901", // 
       accountType: "입출금", // 
       balance: 1523000, // 
-      status: "지급정지",
+      status: "지급정지", //
       ownerName: "김연지", // 
     },
     {
@@ -55,6 +55,25 @@ function App() {
   // prop으로 새로 생긴 변수를 넘겨보세요
   const [showAmount, setShowAmount] = useState(false);
 
+  // 고객에 관한 전체 정보를 한 번 불러와서 state로 관리
+  const [accounts, setAccounts] = useState(initialAccounts);
+
+  // accounts의 특정 위치의 balance를 변경하는 함수
+  // accountId라는 고유key로 특정 고객의 balance를 변경
+  // 입력받은 accountId가 일치하는 고객의 계좌 dict에서만
+  // map 함수를 가지고 특정 dict의 모든 값-value에 접근해서
+  // balance 라는 key에만 10000을 더합니다.
+  function handleDeposit(accountId) {
+    setAccounts(
+      accounts.map((a) => 
+        a.accountId === accountId ? {...a, balance: a.balance + 10000} : a)
+    )
+  }
+
+  // 합계를 state로 두지 않습니다. component 안에서의 각각의 상태값이 아니고
+  // App에서 매번 다시 계산하는 변수
+  const totalBalance = accounts[0].balance + accounts[1].balance
+
   // XML에서는 여는 꺽쇠 안의 태그가 무엇이든 될 수 있기 때문에 <이름>김연지 </이름>
   // JSX 가 소문자 태그는 HTML, 대문자로 시작하는 태그는 컴포넌트로 인식
   // return ( ) 바깥에서는 일반 자바스크립트처럼 // 로 주석을 적습니다.
@@ -76,7 +95,7 @@ function App() {
 
     <div className="total">
       <p> 총 자산 </p>
-      <p> {formatWon(accounts[0].balance + accounts[1].balance) } </p>
+      <p> {formatWon(totalBalance) } </p>
     </div>
     {/* 사용 */}
     <Panel title="내 계좌">
@@ -85,14 +104,18 @@ function App() {
                   balance={accounts[0].balance}
                   status={accounts[0].status}
                   showFullNo={showFullNo}
-                  showAmount={showAmount} />
+                  showAmount={showAmount}
+                  onDeposit={() => handleDeposit(accounts[0].accountId) }
+                   />
       {/* 두번째 AccountCard가 출력되도록 accounts[1] dict의 값과 매핑해주세요. */}
     
       <AccountCard accountNo={accounts[1].accountNo}
                   accountType={accounts[1].accountType} 
                   balance={accounts[1].balance}
                   status={accounts[1].status}
-                  showFullNo={showFullNo} />
+                  showFullNo={showFullNo}
+                  onDeposit={() => handleDeposit(accounts[1].accountId) }
+                   />
     
     </Panel>
 
