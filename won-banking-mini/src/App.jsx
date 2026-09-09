@@ -12,6 +12,7 @@ import { formatWon } from './utils/format.js'
 import ExchangeRate from './components/ExchangeRate.jsx'
 import TransactionList from './components/TransactionList.jsx'
 import { UserProvider } from './contexts/UserContext.jsx'
+
 // 02_html기초.html 안에 만들었던 계좌카드의 css를 가져와서
 // 아래에 있는 카드를 좀더 그럴듯하게 꾸며보세요.
 // 실제로 사용될 화면을 그립니다.
@@ -105,17 +106,27 @@ function App() {
     </div>
     {/* 사용 */}
 
-    <Panel title="내 계좌">
+    <Panel title={'내 계좌'}>
       {accounts.map((account) => (
-        <AccountCard key={account.accountId} 
-                    showFullNo={showFullNo}
-                    showAmount={showAmount}
-                    onDeposit={() => handleDeposit(account.accountId)} 
-                    accountNo={account.accountNo}
-                    accountType={account.accountType} 
-                    balance={account.balance}
-                    status={account.status}  
-                     />
+        // 계좌마다 UserProvider를 만들어
+        // 해당 계좌의 status를 Context로 전달합니다.
+        <UserProvider
+          key={account.accountId}
+          user={{
+            name: "김연지",
+            grade: "우수",
+            status: account.status,
+          }}
+        >
+          <AccountCard key={account.accountId} 
+                      showFullNo={showFullNo}
+                      showAmount={showAmount}
+                      onDeposit={() => handleDeposit(account.accountId)} 
+                      accountNo={account.accountNo}
+                      accountType={account.accountType} 
+                      balance={account.balance}
+                       />
+        </UserProvider>
         ))}
     </Panel>
 
