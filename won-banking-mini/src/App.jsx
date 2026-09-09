@@ -11,7 +11,7 @@ import { transactions } from './data/mockData'
 import { formatWon } from './utils/format.js'
 import ExchangeRate from './components/ExchangeRate.jsx'
 import TransactionList from './components/TransactionList.jsx'
-
+import { UserProvider } from './contexts/UserContext.jsx'
 // 02_html기초.html 안에 만들었던 계좌카드의 css를 가져와서
 // 아래에 있는 카드를 좀더 그럴듯하게 꾸며보세요.
 // 실제로 사용될 화면을 그립니다.
@@ -82,6 +82,7 @@ function App() {
   // return 뒤에 렌더링 될 부분을 적습니다.
   return (
     <> 
+    <UserProvider user={{ name: "김연지", grade: "우수" }}>    
     <Header />
 
     <button onClick={() => setShowFullNo(!showFullNo)}>
@@ -131,6 +132,7 @@ function App() {
     <Panel title="오늘의 환율"> 
      <ExchangeRate />
     </Panel>
+    </UserProvider>
     </>
   );
 }
