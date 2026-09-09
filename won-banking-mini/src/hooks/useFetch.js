@@ -27,7 +27,7 @@ export function useFetch(fetcher, deps = []) {
     load();
 
     return () => { alive = false;  }; 
-  }, [reloadKey, ...deps]);
+  }, [reloadKey, ...deps]); // dependency(의존) 해당 state가 변경될 때마다 새로 컴포넌트가 엘리먼트를 찍어내도록 걸어주는 변수
 
   const reload = () => setReloadKey((k) => k + 1);
   return { data, loading, error, reload };

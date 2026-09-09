@@ -3,7 +3,7 @@
 import { transactions } from "../data/mockData.js";
 
 // 환율 API. 
-const API_URL = "https://open.er-api.com/v6/leeeatest/USD";
+const API_URL = "https://open.er-api.com/v6/latest/USD";
 
 export function fetchTransactions() {
   return transactions;
