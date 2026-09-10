@@ -23,7 +23,7 @@ React를 처음 배우면서 컴포넌트 분리 · props · state · Context ·
 
 ```bash
 git clone https://github.com/Seunghyun-Jeong/02_react.git
-cd 02_react/deploy/won-banking-mini
+cd 02_react
 
 npm install       # 의존성 설치
 npm run dev       # 개발 서버 (http://localhost:5173)
