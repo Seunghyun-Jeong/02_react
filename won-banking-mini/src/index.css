@@ -206,3 +206,27 @@ header h1 {
   color: var(--muted);
   margin-bottom: 8px;
 }
+
+/* 이체 폼 — TransferForm.jsx 가 쓰는데 정의가 없던 클래스들 */
+.field {
+  margin-bottom: 12px;
+}
+
+.field label {
+  display: block;
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+
+.field input {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.error {
+  color: #d93025;
+  font-size: 13px;
+}

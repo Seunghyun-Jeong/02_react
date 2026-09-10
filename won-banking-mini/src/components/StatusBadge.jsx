@@ -10,7 +10,7 @@ const colors = {
 }
 
 // inline(코드 사이에 css를 입힐 때): style={{ key: value }} 형식으로 삽입합니다.
-function StatusBadge({ }){
+function StatusBadge() {
 
     // UserContext에서 현재 계좌의 status를 가져옵니다.
     const user = useUser();
